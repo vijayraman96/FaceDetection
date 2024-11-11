@@ -5,9 +5,11 @@
  * @format
  */
 
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Dimensions,
+  Image,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -16,103 +18,89 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
+import {RNCamera} from 'react-native-camera';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {RootStack} from './src/Navigation/RootStack';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {NavigationContainer, NavigationState} from '@react-navigation/native';
+import {persistor, store} from './src/Redux/Store/Store';
+import Toast from 'react-native-toast-message';
+import ToastConfig from './src/utils/Helper/ToastConfig';
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [type, setType] = useState(RNCamera.Constants.Type.front);
+  const [box, setBox] = useState(null);
+  const cameraRef = useRef(null);
+  const [local, setLocal] = useState<NavigationState>();
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+  // const handlerFace = ({faces}) => {
+  //   if (faces[0]) {
+  //     setBox({
+  //       boxs: {
+  //         width: faces[0].bounds.size.width,
+  //         height: faces[0].bounds.size.height,
+  //         x: faces[0].bounds.origin.x,
+  //         y: faces[0].bounds.origin.y,
+  //         yawAngle: faces[0].yawAngle,
+  //         rollAngle: faces[0].rollAngle,
+  //       },
+  //       rightEyePosition: faces[0].rightEyePosition,
+  //       leftEyePosition: faces[0].leftEyePosition,
+  //       bottomMounthPosition: faces[0].bottomMounthPosition,
+  //     });
+  //   } else {
+  //     setBox(null);
+  //   }
+  // };
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <NavigationContainer initialState={local} onStateChange={setLocal}>
+            <RootStack />
+          </NavigationContainer>
+        </PersistGate>
+      </Provider>
+      <Toast config={ToastConfig} visibilityTime={2000} autoHide={true} />
+    </SafeAreaProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: 'gray',
+//   },
+//   camera: {
+//     flexGrow: 1,
+//   },
+//   bound: ({width, height, x, y}) => {
+//     return {
+//       position: 'absolute',
+//       top: y,
+//       left: x - 50,
+//       height,
+//       width,
+//       borderWidth: 5,
+//       borderColor: 'red',
+//       zIndex: 3000,
+//     };
+//   },
+//   glasses: ({rightEyePosition, leftEyePosition, yawAngle, rollAngle}) => {
+//     return {
+//       position: 'absolute',
+//       top: rightEyePosition.y - 60,
+//       left: rightEyePosition.x - 100,
+//       resizeMode: 'contain',
+//       width: Math.abs(leftEyePosition.x - rightEyePosition.x) + 100,
+//     };
+//   },
+// });
 
 export default App;
