@@ -49,6 +49,7 @@ export default function Login() {
   });
 
   const handleSubmit = (values: any) => {
+    setLoading(true);
     // try {
     // console.log(values, 'values');
     let request = {
@@ -112,7 +113,9 @@ export default function Login() {
   }, [isLogin]);
   return (
     <SafeAreaView style={{flex: 1}}>
-      <KeyboardAwareScrollView contentContainerStyle={styles.loginContainer} enableOnAndroid >
+      <KeyboardAwareScrollView contentContainerStyle={styles.loginContainer}  enableOnAndroid
+  extraScrollHeight={20}
+  keyboardShouldPersistTaps="handled">
         <View style={styles.inputContainer}>
           <View style={[styles.imageView]}>
             <Image source={ImagesPath.faceRecognition} style={[styles.face]} resizeMode='contain'/>
@@ -155,10 +158,7 @@ export default function Login() {
             isLoading={loading}
             // disable={loading}
             // maxLength={10}
-            onPress={() => {
-              setLoading(true);
-              formik.handleSubmit();
-            }}
+            onPress={formik.handleSubmit}
           />
         </View>
       </KeyboardAwareScrollView>
