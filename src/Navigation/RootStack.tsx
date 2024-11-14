@@ -7,6 +7,8 @@ import Camera from '../Screens/Camera/Camera';
 import Employee from '../Screens/Employee/Employee';
 import Login from '../Screens/Login/Login';
 import CreateEmployee from '../Screens/CreateEmployee/CreateEmployee';
+import Option from '../Screens/Option/Option';
+import Attendance from '../Screens/Attendance/Attendance';
 
 
 export  const RootStack = ()  => {
@@ -17,7 +19,13 @@ export  const RootStack = ()  => {
           <Stack.Screen name="Login" component={Login}  options={{ 
             headerShown: false 
           }}  />
+       <Stack.Screen name="Option" component={Option}  options={{ 
+            headerShown: false 
+          }}  />
       <Stack.Screen name="Employee" component={Employee}  options={{ 
+            headerShown: false 
+          }}  />
+      <Stack.Screen name="Attendance" component={Attendance}  options={{ 
             headerShown: false 
           }}  />
       <Stack.Screen name="Home" component={Home}  options={{ 

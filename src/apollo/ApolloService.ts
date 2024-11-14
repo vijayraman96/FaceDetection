@@ -7,7 +7,7 @@ import {
   // GRAPH_CACHE_URL,
 } from '@env';
 
-const GRAPH_PROFILE_URL = 'https://f1b6-210-18-142-254.ngrok-free.app/shuttle/api/graphql';
+const GRAPH_PROFILE_URL = 'https://63dvxipzx2j3zn5skyegy3mkwa0qavvl.lambda-url.ap-south-1.on.aws/face-recon/api/graphql';
 // const GRAPH_PROFILE_URL = 'http://192.168.1.6:7002/api/profile/graphql';
 // const GRAPH_APPLICATION_URL =
 //   'http://192.168.1.33:7001/api/application/graphql';

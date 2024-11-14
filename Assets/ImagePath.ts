@@ -9,5 +9,7 @@ export const ImagesPath = {
     cameraFlip: require('./Images/flip.png'),
     back: require('./Images/return.png'),
     employee: require('./Images/employee.png'),
-    faceRecognition: require('./Images/fr.png')
+    faceRecognition: require('./Images/fr.png'),
+    womanAttendance: require('./Images/woman_attendance.jpg'),
+
 }

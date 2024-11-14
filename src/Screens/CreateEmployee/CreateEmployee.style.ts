@@ -17,7 +17,20 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: hp(4),
         borderRadius: wp(50)
-    },
+    },penIcon: {
+        justifyContent: 'center',
+        alignSelf: 'center',
+        alignItems: 'center',
+        width: hp(4),
+        height: hp(4),
+        backgroundColor: Color.black,
+        borderRadius: hp(2),
+        borderWidth: wp(0.8),
+        borderColor: Color.white,
+        position: 'absolute',
+        bottom: hp(4),
+        left: wp(36),
+      },
     textContainer: {
         marginVertical: hp(3),
         justifyContent: 'center',

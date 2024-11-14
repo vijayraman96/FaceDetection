@@ -77,10 +77,10 @@ export const rLoginUser = (loginRequest: any) => async (dispatch: Dispatch<any> 
 
       dispatch(setToken(sessionToken));
       dispatch(setUserID(data.loginAdmin.user.user_id));
-      Toast.show({
-        type: 'success',
-        text1: 'Login successful!',
-      });
+      // Toast.show({
+      //   type: 'success',
+      //   text1: 'Login successful!',
+      // });
     } else {
       dispatch({type: LOGIN_FAILED});
       Toast.show({

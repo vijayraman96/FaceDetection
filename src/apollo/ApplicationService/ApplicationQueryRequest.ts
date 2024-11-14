@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client';
+import { gql } from '@apollo/client';
 
 export const GET_BRAND_LIST = gql`
   query getBrandList(
@@ -3871,4 +3871,87 @@ export const GET_USER_KYC_BY_USER_ID = gql`
       }
     }
   }
+`;
+
+export const GET_ATTENDANCE_LIST = gql`
+ query GetAttendanceList ($active: Boolean, $pagination: PaginationFilter, $dateFilter: DateFilter, $employee_id: String, $accuracy: Float, $time_stamp: DateTimeISO, $attendance_id: String) {
+    GetAttendanceList (active: $active, pagination: $pagination, dateFilter: $dateFilter, employee_id: $employee_id, accuracy: $accuracy, time_stamp: $time_stamp, attendance_id: $attendance_id) {
+        status
+        error
+        message
+        version
+        service
+        pagination {
+            page_number
+            item_count
+            total_count
+        }
+        attendances {
+            created_at
+            created_by
+            updated_at
+            updated_by
+            attendance_id
+            employee_id
+            time_stamp
+            employee_image_url {
+                key
+                sort_order
+                image_type
+                url
+            }
+            accuracy
+        }
+    }
+}
+`;
+
+export const GET_EMPLOYEE_INFO = gql`
+  query GetEmployeeInfo ($user_id: String!) {
+    GetEmployeeInfo (user_id: $user_id) {
+        status
+        error
+        message
+        version
+        service
+        user {
+            created_at
+            created_by
+            updated_at
+            updated_by
+            user_id
+            user_type
+            user_name
+            DOB
+            mobile_number
+            mobile_number_verified
+            email
+            email_verified
+            password
+            device_id
+            active
+            org_id
+            company_id
+            gender
+        }
+        employee {
+            created_at
+            created_by
+            updated_at
+            updated_by
+            user_id
+            email
+            company_name
+            employee_uid
+            org_id
+            designation
+            employee_image_url {
+                key
+                sort_order
+                image_type
+                url
+            }
+        }
+    }
+}
 `;
